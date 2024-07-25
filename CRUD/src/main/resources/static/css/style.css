@@ -1,8 +1,34 @@
-.icon:hover i {
-    transform: translate3d(0, -.125rem, 0);
+.container{
+background-color:white;
 }
 
-.icon {
+.edit-icon:hover i {
+    transform: translate3d(0, -.125rem, 0);
+    color: green;
+}
+
+.edit-icon {
     color: green;
     font-size: 25px;
 }
+
+.delete-icon:hover i {
+    transform: translate3d(0, -.125rem, 0);
+    color:red;
+}
+
+.delete-icon {
+    color: red;
+    font-size: 25px;
+}
+
+input[type="text"] {
+        border: 1px solid black;
+       }
+
+ .header-row {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+

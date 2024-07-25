@@ -31,8 +31,11 @@
     <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
 </head>
 <body class="bg-light">
-<div class="container mt-4 shadow p-2">
-    <h1 class="mb-4">Computer Records</h1>
+<div class="container mt-2 shadow">
+    <div class="header-row mb-4">
+        <h1>Computer Records</h1>
+       <a href="computers/record" class="btn btn-primary">Add Computer</a>
+    </div>
     <table
             id="example"
             class="table table-bordered table-striped table-hover display"
@@ -49,37 +52,21 @@
         </tr>
         </thead>
         <tbody>
-        <tr>
-            <td>1</td>
-            <td>Dell Inspiron</td>
-            <td>SN12345</td>
-            <td>2021-01-15</td>
+        <tr th:each ="computer : ${computers}">
+            <td th:text="${computer.id}"></td>
+            <td th:text="${computer.computerName}">Dell Inspiron</td>
+            <td th:text="${computer.serialNumber}">SN12345</td>
+            <td th:text="${computer.date}">2021-01-15</td>
             <td>
-                <a href="#" class="edit-icon">
+                <a th:href="@{/computers/edit(id =${computer.id})}"  class="edit-icon">
                     <i class="fa-regular fa-pen-to-square"></i>
                 </a>
             </td>
             <td>
-                <a href="#" class="delete-icon">
+                <a th:href="@{/computers/delete(id =${computer.id})}" onclick="return confirm('Confirm to delete this computer')" class="delete-icon">
                     <i class="fa-solid fa-trash danger"></i>
                 </a>
             </td>
-        </tr>
-        <tr>
-            <td>2</td>
-            <td>HP Pavilion</td>
-            <td>SN67890</td>
-            <td>2020-07-22</td>
-            <td><a href="#" class="btn btn-primary btn-sm">Edit</a></td>
-            <td><a href="#" class="btn btn-danger btn-sm">Delete</a></td>
-        </tr>
-        <tr>
-            <td>3</td>
-            <td>MacBook Pro</td>
-            <td>SN11223</td>
-            <td>2019-03-05</td>
-            <td><a href="#" class="btn btn-primary btn-sm">Edit</a></td>
-            <td><a href="#" class="btn btn-danger btn-sm">Delete</a></td>
         </tr>
         </tbody>
     </table>

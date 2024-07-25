@@ -17,23 +17,37 @@
             href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
     />
     <!--    css style-->
+    <link rel="stylesheet" type="text/css" th:href="@{/css/style.css}" />
     <style>
-        .center-content {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 90vh;
+        .form-control-plaintext {
+            color: black;
+            border: 1px solid black;
         }
+
     </style>
+
 </head>
 <body class="bg-light">
-<div class="container mt-4  p-2 center-content">
-    <h1 class="mb-4">Welcome ! </h1>
-    <a href="/computers" class="btn btn-primary">
-        Manage Computers
-        <i class="fa-solid fa-right-to-bracket"></i>
-    </a>
+<div class="container mt-2 shadow">
+    <h1 class="mb-5 text-center">Record a Computer</h1>
+    <div class="d-flex justify-content-center">
+        <form class="row g-3 mb-5  border" method="post" th:object="${computersDto}" style="width: 100%; max-width: 600px;">
+            <div class="col-12">
+                <label for="computerName" class="form-label">Computer Name:</label>
+                <input type="text" th:field="*{computerName}" class="form-control " id="computerName">
+                <p th:if="${#fields.hasErrors('computerName')}" th:errorclass="text-danger" th:errors="*{computerName}"></p>
+            </div>
+            <div class="col-12">
+                <label for="serialNumber" class="form-label">Serial Number:</label>
+                <input type="text" th:field="*{serialNumber}" class="form-control" id="serialNumber">
+                <p th:if="${#fields.hasErrors('serialNumber')}" th:errorclass="text-danger" th:errors="*{serialNumber}"></p>
+            </div>
+            <div class="col-12 text-center">
+                <button type="submit" class="btn btn-success mb-3 shadow">Save</button>
+                <a href="/computers" class="btn btn-danger mb-3 shadow">Cancel</a>
+            </div>
+        </form>
+    </div>
 </div>
 
 <!--bootstrap-->
