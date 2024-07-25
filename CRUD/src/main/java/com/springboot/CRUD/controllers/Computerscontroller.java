@@ -106,6 +106,20 @@ public class Computerscontroller {
     }
 
 
+    @GetMapping("/delete")
+    public String deleteComputer(@RequestParam int id){
+        try{
+            Computers computers = repo.findById(id).get();
+
+            repo.delete(computers);
+        }catch (Exception e){
+            System.out.println("Exception"+ e.getMessage());
+        }
+        return "redirect:/computers";
+
+    }
+
+
 
 
 }
