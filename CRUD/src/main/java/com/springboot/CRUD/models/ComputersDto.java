@@ -5,6 +5,9 @@ import jakarta.validation.constraints.*;
 import java.time.LocalDate;
 
 public class ComputersDto {
+
+    private int id;
+
     @NotEmpty(message = "Computer Name can not be empty")
     private String computerName;
 
@@ -13,6 +16,14 @@ public class ComputersDto {
 
     private LocalDate date;
 
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
 
     public  String getComputerName() {
         return computerName;
@@ -34,7 +45,7 @@ public class ComputersDto {
         return date;
     }
 
-    public void setDate() {
+    public void setDate(LocalDate date) {
         this.date = LocalDate.now();
     }
 

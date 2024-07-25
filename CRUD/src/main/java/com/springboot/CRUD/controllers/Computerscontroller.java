@@ -9,10 +9,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -39,6 +36,8 @@ public class Computerscontroller {
 
     }
 
+
+
     @PostMapping({"/record"})
     public String recordComputers(@Valid @ModelAttribute ComputersDto computersDto, BindingResult result){
 
@@ -56,6 +55,56 @@ public class Computerscontroller {
         return "redirect:/computers";
 
     }
+
+    @GetMapping({"/edit"})
+    public String showEditPage(Model model, @RequestParam int id){
+
+        try{
+            Computers computer = repo.findById(id).get();
+            model.addAttribute("computer",computer);
+
+            ComputersDto computersDto = new ComputersDto();
+
+            computersDto.setId(computer.getId());
+            computersDto.setComputerName(computer.getComputerName());
+            computersDto.setSerialNumber(computer.getSerialNumber());
+            computersDto.setDate(computer.getDate());
+
+            model.addAttribute("computersDto",computersDto);
+
+        }catch (Exception e){
+            System.out.println("Exception: " + e.getMessage());
+            return "redirect:/computers";
+        }
+        return "computers/EditComputers";
+    }
+
+
+    @PostMapping("/edit")
+    public String updateComputer(Model model,@RequestParam int id,@Valid @ModelAttribute ComputersDto computersDto, BindingResult result) {
+
+        if (result.hasErrors()) {
+            // If there are validation errors, stay on the same page and show errors
+            model.addAttribute("computersDto", computersDto);
+            return "computers/EditComputers";
+        }
+
+        try {
+
+            Computers existingComputer = repo.findById(computersDto.getId()).get();
+
+            existingComputer.setComputerName(computersDto.getComputerName());
+            existingComputer.setSerialNumber(computersDto.getSerialNumber());
+
+            repo.save(existingComputer);
+
+            return "redirect:/computers"; // Redirect to the computers list page after successful update
+        } catch (Exception e) {
+            System.out.println("Exception: " + e.getMessage());
+            return "redirect:/edit?id=" + computersDto.getId(); // Redirect back to edit page with error handling (optional)
+        }
+    }
+
 
 
 
